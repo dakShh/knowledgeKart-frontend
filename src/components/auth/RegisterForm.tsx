@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { cn } from '../../utils/cn';
 
-export default function LoginForm() {
+export default function RegisterForm() {
     const navigate = useNavigate();
     return (
         <div
@@ -12,10 +12,34 @@ export default function LoginForm() {
             )}
         >
             <div className={cn('text-center mb-6')}>
-                <h2 className={cn('text-3xl font-extrabold')}>Login</h2>
+                <h2 className={cn('text-3xl font-extrabold')}>Register</h2>
             </div>
 
             <form className={cn('flex flex-col space-y-2')}>
+                <div className={cn('grid grid-cols-2 gap-x-2')}>
+                    <label className="form-control w-full">
+                        <div className="label">
+                            <span className="label-text ">First Name</span>
+                        </div>
+
+                        <input
+                            className={cn('input input-bordered focus:outline-none')}
+                            placeholder="John"
+                        />
+                    </label>
+
+                    <label className="form-control w-full">
+                        <div className="label">
+                            <span className="label-text ">Last Name</span>
+                        </div>
+
+                        <input
+                            className={cn('input input-bordered focus:outline-none')}
+                            placeholder="Doe"
+                        />
+                    </label>
+                </div>
+
                 <label className="form-control w-full">
                     <div className="label">
                         <span className="label-text ">Email</span>
@@ -38,21 +62,18 @@ export default function LoginForm() {
                         type="password"
                     ></input>
                 </label>
-                <div className={cn('w-full flex')}>
-                    <div className="text-sm link-info  ml-auto italic">Forgot Password?</div>
-                </div>
                 <div className={cn('w-full')}>
-                    <button className="mt-5 btn btn-primary w-full rounded-full">Login</button>
+                    <button className="mt-5 btn btn-primary w-full rounded-full">Register</button>
                 </div>
             </form>
             <div className={cn('text-center')}>
                 <div className={cn('mt-2')}>
-                    Dont have an account?{' '}
+                    Already have an account?{' '}
                     <span
-                        onClick={() => navigate('/signup')}
+                        onClick={() => navigate('/login')}
                         className="link cursor-pointer hover:no-underline link-info underline-offset-2"
                     >
-                        Register here
+                        Login here
                     </span>{' '}
                 </div>
             </div>
