@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 // Pages
 import Login from './pages/authentication/login';
 import SignUp from './pages/authentication/signup';
+import HomePage from './pages/home';
+import Dashboard from './pages/dashboard';
 
 // Utils
 import { cn } from './utils/cn';
@@ -11,6 +13,8 @@ import { cn } from './utils/cn';
 import AuthProvider from './context/useAuth';
 
 import './App.css';
+
+// Components
 import { ProtectedRoute } from './components/routes/ProtectedRoutes';
 
 function App() {
@@ -24,7 +28,15 @@ function App() {
                         path="/"
                         element={
                             <ProtectedRoute>
-                                <div>home page/ landing page</div>
+                                <HomePage />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/dashboard"
+                        element={
+                            <ProtectedRoute>
+                                <Dashboard />
                             </ProtectedRoute>
                         }
                     />

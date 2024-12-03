@@ -1,8 +1,25 @@
 import { useNavigate } from 'react-router-dom';
 import { cn } from '../../utils/cn';
 
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { LoginSchema, LoginSchemaType } from '../../schemas/authSchema';
+import { zodResolver } from '@hookform/resolvers/zod';
+
+import { useAuth } from '../../context/useAuth';
+
 export default function LoginForm() {
     const navigate = useNavigate();
+    const { loginUser } = useAuth();
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<LoginSchemaType>({ resolver: zodResolver(LoginSchema) });
+
+    const onSubmit: SubmitHandler<LoginSchemaType> = async (data) => {
+        loginUser(data);
+    };
+
     return (
         <div
             className={cn(
@@ -15,7 +32,7 @@ export default function LoginForm() {
                 <h2 className={cn('text-3xl font-extrabold')}>Login</h2>
             </div>
 
-            <form className={cn('flex flex-col space-y-2')}>
+            <form onSubmit={handleSubmit(onSubmit)} className={cn('flex flex-col space-y-2')}>
                 <label className="form-control w-full">
                     <div className="label">
                         <span className="label-text ">Email</span>
@@ -24,7 +41,12 @@ export default function LoginForm() {
                     <input
                         className={cn('input input-bordered focus:outline-none')}
                         placeholder="example@provider.com"
+                        {...register('email')}
                     />
+
+                    {errors.email && (
+                        <span className={cn('text-error text-sm')}>{errors.email.message}</span>
+                    )}
                 </label>
 
                 <label className="form-control w-full">
@@ -36,13 +58,20 @@ export default function LoginForm() {
                         className={cn('input input-bordered focus:outline-none')}
                         placeholder="*******"
                         type="password"
+                        {...register('password')}
                     ></input>
+
+                    {errors.password && (
+                        <span className={cn('text-error text-sm')}>{errors.password.message}</span>
+                    )}
                 </label>
                 <div className={cn('w-full flex')}>
                     <div className="text-sm link-info  ml-auto italic">Forgot Password?</div>
                 </div>
                 <div className={cn('w-full')}>
-                    <button className="mt-5 btn btn-primary w-full rounded-full">Login</button>
+                    <button type="submit" className="mt-5 btn btn-primary w-full rounded-full">
+                        Login
+                    </button>
                 </div>
             </form>
             <div className={cn('text-center')}>

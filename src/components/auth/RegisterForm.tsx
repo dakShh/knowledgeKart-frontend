@@ -1,8 +1,32 @@
 import { useNavigate } from 'react-router-dom';
 import { cn } from '../../utils/cn';
 
+import { useForm, SubmitHandler } from 'react-hook-form';
+
+// Schema
+import { RegisterSchema, RegisterSchemaType } from '../../schemas/authSchema';
+import { zodResolver } from '@hookform/resolvers/zod';
+
+// Context
+import { RegisterUserAPI } from '../../services/AuthService';
+import { ApiResponse } from '../../types/common';
+
 export default function RegisterForm() {
     const navigate = useNavigate();
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<RegisterSchemaType>({ resolver: zodResolver(RegisterSchema) });
+
+    const onSubmit: SubmitHandler<RegisterSchemaType> = async (data) => {
+        const response = (await RegisterUserAPI(data)) as ApiResponse;
+        if (response?.status) {
+            navigate('/login');
+        }
+    };
+
     return (
         <div
             className={cn(
@@ -15,28 +39,36 @@ export default function RegisterForm() {
                 <h2 className={cn('text-3xl font-extrabold')}>Register</h2>
             </div>
 
-            <form className={cn('flex flex-col space-y-2')}>
+            <form onSubmit={handleSubmit(onSubmit)} className={cn('flex flex-col space-y-2')}>
                 <div className={cn('grid grid-cols-2 gap-x-2')}>
                     <label className="form-control w-full">
                         <div className="label">
-                            <span className="label-text ">First Name</span>
+                            <span className="label-text ">Firstname</span>
                         </div>
 
                         <input
                             className={cn('input input-bordered focus:outline-none')}
                             placeholder="John"
+                            {...register('firstName')}
                         />
+                        {errors.firstName && (
+                            <span className={cn('text-error text-sm')}>{errors.firstName.message}</span>
+                        )}
                     </label>
 
                     <label className="form-control w-full">
                         <div className="label">
-                            <span className="label-text ">Last Name</span>
+                            <span className="label-text ">Lastname</span>
                         </div>
 
                         <input
                             className={cn('input input-bordered focus:outline-none')}
                             placeholder="Doe"
+                            {...register('lastName')}
                         />
+                        {errors.lastName && (
+                            <span className={cn('text-error text-sm')}>{errors.lastName.message}</span>
+                        )}
                     </label>
                 </div>
 
@@ -48,7 +80,11 @@ export default function RegisterForm() {
                     <input
                         className={cn('input input-bordered focus:outline-none')}
                         placeholder="example@provider.com"
+                        {...register('email')}
                     />
+                    {errors.email && (
+                        <span className={cn('text-error text-sm')}>{errors.email.message}</span>
+                    )}
                 </label>
 
                 <label className="form-control w-full">
@@ -60,10 +96,16 @@ export default function RegisterForm() {
                         className={cn('input input-bordered focus:outline-none')}
                         placeholder="*******"
                         type="password"
+                        {...register('password')}
                     ></input>
+                    {errors.password && (
+                        <span className={cn('text-error text-sm')}>{errors.password.message}</span>
+                    )}
                 </label>
                 <div className={cn('w-full')}>
-                    <button className="mt-5 btn btn-primary w-full rounded-full">Register</button>
+                    <button type="submit" className="mt-5 btn btn-primary w-full rounded-full">
+                        Register
+                    </button>
                 </div>
             </form>
             <div className={cn('text-center')}>

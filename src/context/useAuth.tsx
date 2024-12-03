@@ -1,12 +1,16 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { UserProfile, UserProfileToken } from '../types/user';
 import { useNavigate } from 'react-router-dom';
+import { RegisterSchemaType } from '../schemas/authSchema';
+import { LoginUserAPI, RegisterUserAPI } from '../services/AuthService';
+import { AxiosError } from 'axios';
 
 type AuthContextType = {
     user: UserProfileToken | null;
     token: string | null;
-    registerUser: (firstName: string, lastName: string, email: string, password: string) => void;
-    loginUser: (email: string, password: string) => void;
+    // registerUser: (UserData: RegisterSchemaType) => void;
+    // registerUser: (firstName: string, lastName: string, email: string, password: string) => void;
+    loginUser: (UserData: { email: string; password: string }) => void;
     logoutUser: () => void;
     isLoggedIn: () => boolean;
 };
@@ -20,22 +24,49 @@ export default function AuthProvider({ children }: Props) {
     const [token, setToken] = useState<string | null>('' as string);
     const [user, setUser] = useState<UserProfileToken | null>(null);
     const [isReady, setIsReady] = useState<boolean>(false);
+    console.log('token: ', token);
+    console.log('user: ', user);
+    async function loginUser(UserData: { email: string; password: string }) {
+        try {
+            const res = await LoginUserAPI(UserData);
+            if (res) {
+                localStorage.setItem('token', res?.data?.token);
+                localStorage.setItem('user', JSON.stringify(res?.data));
+                setToken(res?.data?.token);
+                setUser(res?.data);
+                navigate('/');
+            }
+        } catch (error) {
+            const errMessage = error as AxiosError;
+            console.error('error: ', errMessage?.response?.data ?? 'Error Logging in');
+        }
+    }
 
-    async function registerUser(firstName: string, lastName: string, email: string, password: string) {}
-
-    async function loginUser(email: string, password: string) {}
-
-    async function logoutUser() {}
+    function logoutUser() {
+        setUser(null);
+        setToken('');
+        navigate('/');
+    }
 
     function isLoggedIn() {
         return !!user && !!token;
     }
 
-    useEffect(() => {}, []);
+    useEffect(() => {
+        const user = localStorage.getItem('user');
+        const token = localStorage.getItem('token');
+
+        if (user && token) {
+            setUser(JSON.parse(user));
+            setToken(token);
+        }
+
+        setIsReady(true);
+    }, []);
 
     return (
-        <AuthContext.Provider value={{ token, user, registerUser, loginUser, logoutUser, isLoggedIn }}>
-            {children}
+        <AuthContext.Provider value={{ token, user, loginUser, logoutUser, isLoggedIn }}>
+            {isReady ? children : null}
         </AuthContext.Provider>
     );
 }
