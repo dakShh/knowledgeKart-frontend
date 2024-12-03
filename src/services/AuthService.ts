@@ -1,5 +1,5 @@
 import axios, { AxiosError } from 'axios';
-import { UserProfile, UserProfileToken } from '../types/user';
+import { LoginUserApiResponse, UserProfile, UserProfileToken } from '../types/user';
 import { ApiResponse } from '../types/common';
 
 const api = 'http://localhost:8000/api/v1/user/';
@@ -26,13 +26,12 @@ export async function RegisterUserAPI(UserData: UserProfile) {
 
 export async function LoginUserAPI(UserData: { email: string; password: string }) {
     try {
-        const response = await axios.post<UserProfileToken>(api + 'login', {
+        const response = await axios.post<LoginUserApiResponse>(api + 'login', {
             email: UserData.email,
             password: UserData.password,
         });
 
-        console.log('login response: ', response.data);
-        return response;
+        return response?.data;
     } catch (error) {
         const errMessage = error as AxiosError;
         console.log('error:  ', errMessage?.response?.data || 'error logging in');
