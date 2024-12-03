@@ -7,7 +7,7 @@ export default function NavBar() {
     const navigate = useNavigate();
 
     return (
-        <div className="navbar bg-neutral-800 shadow-lg">
+        <div className="navbar bg-neutral-800 shadow-lg px-10">
             <div className="flex-1">
                 <div
                     onClick={() => navigate('/')}
