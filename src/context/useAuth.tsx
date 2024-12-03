@@ -24,8 +24,6 @@ export default function AuthProvider({ children }: Props) {
     const [token, setToken] = useState<string | null>('' as string);
     const [user, setUser] = useState<UserProfileToken | null>(null);
     const [isReady, setIsReady] = useState<boolean>(false);
-    console.log('token: ', token);
-    console.log('user: ', user);
     async function loginUser(UserData: { email: string; password: string }) {
         try {
             const res = await LoginUserAPI(UserData);
