@@ -1,8 +1,9 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { UserData, UserProfileToken } from '../types/user';
+import { UserData } from '../types/user';
 import { useNavigate } from 'react-router-dom';
 import { LoginUserAPI } from '../services/AuthService';
-import { AxiosError } from 'axios';
+import toast from 'react-hot-toast';
+import { sleep } from '../utils/helper';
 
 type AuthContextType = {
     user: UserData | null;
@@ -10,6 +11,7 @@ type AuthContextType = {
     loginUser: (UserData: { email: string; password: string }) => void;
     logoutUser: () => void;
     isLoggedIn: () => boolean;
+    isLoading: boolean;
 };
 
 type Props = { children: React.ReactNode };
@@ -21,21 +23,25 @@ export default function AuthProvider({ children }: Props) {
     const [token, setToken] = useState<string | null>('' as string);
     const [user, setUser] = useState<UserData | null>(null);
     const [isReady, setIsReady] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     async function loginUser(UserData: { email: string; password: string }) {
         try {
             const res = await LoginUserAPI(UserData);
-
-            if (res?.user && res?.token) {
+            setIsLoading(true);
+            await sleep(1200);
+            if (res) {
                 localStorage.setItem('token', res.token);
                 localStorage.setItem('user', JSON.stringify(res?.user));
                 setToken(res?.token);
                 setUser(res?.user);
                 navigate('/');
+                toast('Logged in!🚀');
             }
         } catch (error) {
-            const errMessage = error as AxiosError;
-            console.error('error: ', errMessage?.response?.data ?? 'Error Logging in');
+            console.error('error: ', error);
+        } finally {
+            setIsLoading(false);
         }
     }
 
@@ -64,7 +70,7 @@ export default function AuthProvider({ children }: Props) {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ token, user, loginUser, logoutUser, isLoggedIn }}>
+        <AuthContext.Provider value={{ token, user, loginUser, logoutUser, isLoggedIn, isLoading }}>
             {isReady ? children : null}
         </AuthContext.Provider>
     );

@@ -10,9 +10,14 @@ import { zodResolver } from '@hookform/resolvers/zod';
 // Context
 import { RegisterUserAPI } from '../../services/AuthService';
 import { ApiResponse } from '../../types/common';
+import { useState } from 'react';
+import { sleep } from '../../utils/helper';
+import toast from 'react-hot-toast';
 
 export default function RegisterForm() {
     const navigate = useNavigate();
+
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const {
         register,
@@ -22,9 +27,15 @@ export default function RegisterForm() {
 
     const onSubmit: SubmitHandler<RegisterSchemaType> = async (data) => {
         const response = (await RegisterUserAPI(data)) as ApiResponse;
+        setIsLoading(true);
+        await sleep(1200);
+
         if (response?.status) {
+            toast.success('Successfully Registered! Please login');
             navigate('/login');
         }
+
+        setIsLoading(false);
     };
 
     return (
@@ -104,7 +115,7 @@ export default function RegisterForm() {
                 </label>
                 <div className={cn('w-full')}>
                     <button type="submit" className="mt-5 btn btn-primary w-full rounded-full">
-                        Register
+                        {isLoading ? <span className="loading loading-bars loading-sm"></span> : `Register`}
                     </button>
                 </div>
             </form>

@@ -2,7 +2,7 @@ export interface UserData {
     _id: string;
     firstName: string;
     lastName: string;
-    createdAt: Date;
+    createdAt?: Date;
     email: string;
 }
 
@@ -15,6 +15,13 @@ export interface UserLoginData {
     password: string;
 }
 
+export interface UserRegisterData {
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+}
+
 export interface UserProfileToken {
     firstName: string;
     lastName: string;
@@ -23,6 +30,7 @@ export interface UserProfileToken {
 }
 
 export interface LoginUserApiResponse {
+    status: boolean;
     token: string;
     user: UserData;
 }

@@ -1,10 +1,11 @@
 import axios, { AxiosError } from 'axios';
-import { LoginUserApiResponse, UserProfile, UserProfileToken } from '../types/user';
+import { LoginUserApiResponse, UserRegisterData } from '../types/user';
 import { ApiResponse } from '../types/common';
+import toast from 'react-hot-toast';
 
 const api = 'http://localhost:8000/api/v1/user/';
 
-export async function RegisterUserAPI(UserData: UserProfile) {
+export async function RegisterUserAPI(UserData: UserRegisterData) {
     try {
         const response = await axios.post<ApiResponse>(api + 'register', {
             firstName: UserData.firstName,
@@ -24,16 +25,19 @@ export async function RegisterUserAPI(UserData: UserProfile) {
     }
 }
 
-export async function LoginUserAPI(UserData: { email: string; password: string }) {
+export async function LoginUserAPI(UserData: {
+    email: string;
+    password: string;
+}): Promise<LoginUserApiResponse | void> {
     try {
-        const response = await axios.post<LoginUserApiResponse>(api + 'login', {
+        const response = await axios.post(api + 'login', {
             email: UserData.email,
             password: UserData.password,
         });
-
-        return response?.data;
+        return response.data;
     } catch (error) {
         const errMessage = error as AxiosError;
-        console.log('error:  ', errMessage?.response?.data || 'error logging in');
+        const err = errMessage.response?.data as { error: string };
+        toast.error(err.error ?? '');
     }
 }

@@ -9,7 +9,7 @@ import { useAuth } from '../../context/useAuth';
 
 export default function LoginForm() {
     const navigate = useNavigate();
-    const { loginUser } = useAuth();
+    const { loginUser, isLoading } = useAuth();
     const {
         register,
         handleSubmit,
@@ -70,7 +70,7 @@ export default function LoginForm() {
                 </div>
                 <div className={cn('w-full')}>
                     <button type="submit" className="mt-5 btn btn-primary w-full rounded-full">
-                        Login
+                        {isLoading ? <span className="loading loading-bars loading-sm"></span> : `Login`}
                     </button>
                 </div>
             </form>

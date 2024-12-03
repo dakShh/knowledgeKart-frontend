@@ -6,9 +6,6 @@ import SignUp from './pages/authentication/signup';
 import HomePage from './pages/home';
 import Dashboard from './pages/dashboard';
 
-// Utils
-import { cn } from './utils/cn';
-
 // Context & Provider
 import AuthProvider from './context/useAuth';
 
@@ -16,6 +13,7 @@ import './App.css';
 
 // Components
 import { ProtectedRoute } from './components/routes/ProtectedRoutes';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
     return (
@@ -41,6 +39,7 @@ function App() {
                         }
                     />
                 </Routes>
+                <Toaster position="bottom-right" />
             </AuthProvider>
         </BrowserRouter>
     );
