@@ -22,7 +22,8 @@ export default function HomePage() {
         <div className={cn('container mx-auto')}>
             <NavBar />
             <Hero />
-            <div className="flex px-10 my-10">
+            <div className="px-10 my-10">
+                <div className={cn('mb-8', 'text-2xl font-extrabold')}>All Courses</div>
                 <div className={cn('grid grid-cols-4 gap-6', '')}>
                     {courses?.map((course, index) => {
                         return <CourseCard courseInfo={course} key={index} />;
