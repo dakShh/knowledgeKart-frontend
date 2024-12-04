@@ -14,6 +14,7 @@ import './App.css';
 // Components
 import { ProtectedRoute } from './components/routes/ProtectedRoutes';
 import { Toaster } from 'react-hot-toast';
+import CreatorLogin from './pages/authentication/creatorLogin';
 
 function App() {
     return (
@@ -21,6 +22,7 @@ function App() {
             <AuthProvider>
                 <Routes>
                     <Route path="/login" element={<Login />} />
+                    <Route path="/creator/login" element={<CreatorLogin />} />
                     <Route path="/signup" element={<SignUp />} />
                     <Route path="/" element={<HomePage />} />
                     <Route

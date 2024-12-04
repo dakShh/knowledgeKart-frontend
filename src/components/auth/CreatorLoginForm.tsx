@@ -7,7 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { useAuth } from '../../context/useAuth';
 
-export default function LoginForm() {
+export default function CreatorLoginForm() {
     const navigate = useNavigate();
     const { loginUser, isLoading } = useAuth();
     const {
@@ -29,7 +29,7 @@ export default function LoginForm() {
             )}
         >
             <div className={cn('text-center mb-6')}>
-                <h2 className={cn('text-3xl font-extrabold')}>{`Login (User)`}</h2>
+                <h2 className={cn('text-3xl font-extrabold')}>{`Login (Creator)`}</h2>
             </div>
 
             <form onSubmit={handleSubmit(onSubmit)} className={cn('flex flex-col space-y-2')}>
@@ -82,18 +82,6 @@ export default function LoginForm() {
                         className="link cursor-pointer hover:no-underline link-info underline-offset-2"
                     >
                         Register here
-                    </span>{' '}
-                </div>
-            </div>
-
-            <div className={cn('text-center')}>
-                <div className={cn('mt-2')}>
-                    Are you a creator?{` `}
-                    <span
-                        onClick={() => navigate('/creator/login')}
-                        className="link cursor-pointer hover:no-underline link-info underline-offset-2"
-                    >
-                        Creator login
                     </span>{' '}
                 </div>
             </div>
