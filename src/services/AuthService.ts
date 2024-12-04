@@ -3,10 +3,12 @@ import { LoginUserApiResponse, UserRegisterData } from '../types/user';
 import { ApiResponse } from '../types/common';
 import toast from 'react-hot-toast';
 
-const api = 'http://localhost:8000/api/v1/user/';
+const userApi = 'http://localhost:8000/api/v1/user/';
+const adminApi = 'http://localhost:8000/api/v1/admin/';
 
-export async function RegisterUserAPI(UserData: UserRegisterData) {
+export async function RegisterUserAPI(UserData: UserRegisterData, isCreator: boolean) {
     try {
+        const api = isCreator ? adminApi : userApi;
         const response = await axios.post<ApiResponse>(api + 'register', {
             firstName: UserData.firstName,
             lastName: UserData.lastName,
@@ -30,7 +32,7 @@ export async function LoginUserAPI(UserData: {
     password: string;
 }): Promise<LoginUserApiResponse | void> {
     try {
-        const response = await axios.post(api + 'login', {
+        const response = await axios.post(userApi + 'login', {
             email: UserData.email,
             password: UserData.password,
         });

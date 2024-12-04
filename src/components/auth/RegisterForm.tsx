@@ -18,6 +18,7 @@ export default function RegisterForm() {
     const navigate = useNavigate();
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isCreator, setIsCreator] = useState<boolean>(false);
 
     const {
         register,
@@ -26,13 +27,15 @@ export default function RegisterForm() {
     } = useForm<RegisterSchemaType>({ resolver: zodResolver(RegisterSchema) });
 
     const onSubmit: SubmitHandler<RegisterSchemaType> = async (data) => {
-        const response = (await RegisterUserAPI(data)) as ApiResponse;
+        const response = (await RegisterUserAPI(data, isCreator)) as ApiResponse;
         setIsLoading(true);
         await sleep(1200);
-
+        console.log('response: ', response);
         if (response?.status) {
             toast.success('Successfully Registered! Please login');
             navigate('/login');
+        } else {
+            toast.error(response?.message ?? 'Error registering, try again later :(');
         }
 
         setIsLoading(false);
@@ -112,6 +115,18 @@ export default function RegisterForm() {
                     {errors.password && (
                         <span className={cn('text-error text-sm')}>{errors.password.message}</span>
                     )}
+                </label>
+
+                <label className="label cursor-pointer">
+                    <span className="label-text">Are you a creator?</span>
+                    <input
+                        type="checkbox"
+                        onChange={(e) => {
+                            console.log('e.target.value', e.target.checked);
+                            setIsCreator(e.target.checked);
+                        }}
+                        className="toggle toggle-primary"
+                    />
                 </label>
                 <div className={cn('w-full')}>
                     <button type="submit" className="mt-5 btn btn-primary w-full rounded-full">
