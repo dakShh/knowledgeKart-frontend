@@ -4,7 +4,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login from './pages/authentication/login';
 import SignUp from './pages/authentication/signup';
 import HomePage from './pages/home';
-import Dashboard from './pages/dashboard';
 
 // Context & Provider
 import AuthProvider from './context/useAuth';
@@ -16,6 +15,7 @@ import { ProtectedRoute } from './components/routes/ProtectedRoutes';
 import { Toaster } from 'react-hot-toast';
 import CreatorLogin from './pages/authentication/creatorLogin';
 import { CreatorProtectedRoute } from './components/routes/CreatorProtectedRoutes';
+import DashboardPage from './pages/dashboard';
 
 function App() {
     return (
@@ -30,7 +30,7 @@ function App() {
                         path="/dashboard"
                         element={
                             <CreatorProtectedRoute>
-                                <Dashboard />
+                                <DashboardPage />
                             </CreatorProtectedRoute>
                         }
                     />

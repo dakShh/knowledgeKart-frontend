@@ -7,7 +7,21 @@ export default function NavBar() {
     const navigate = useNavigate();
 
     return (
-        <div className="navbar bg-neutral-800 shadow-lg px-10">
+        <div className="navbar bg-neutral-800 shadow-lg md:px-10">
+            <div className="mr-5">
+                <label htmlFor="my-drawer-2" className="btn btn-accent drawer-button lg:hidden">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        x="0px"
+                        y="0px"
+                        width="10"
+                        height="10"
+                        viewBox="0 0 32 32"
+                    >
+                        <path d="M 4 7 L 4 9 L 28 9 L 28 7 Z M 4 15 L 4 17 L 28 17 L 28 15 Z M 4 23 L 4 25 L 28 25 L 28 23 Z"></path>
+                    </svg>
+                </label>
+            </div>
             <div className="flex-1">
                 <div
                     onClick={() => navigate('/')}
