@@ -3,7 +3,7 @@ import { useAuth } from '../../context/useAuth';
 import { cn } from '../../utils/cn';
 
 export default function NavBar() {
-    const { isLoggedIn, logoutUser } = useAuth();
+    const { isLoggedIn, logoutUser, isCreator } = useAuth();
     const navigate = useNavigate();
 
     return (
@@ -18,9 +18,19 @@ export default function NavBar() {
             </div>
             <div className="flex-none">
                 {isLoggedIn() ? (
-                    <button onClick={() => logoutUser()} className={cn('btn btn-sm ')}>
-                        Logout
-                    </button>
+                    <div className="menu menu-horizontal items-center gap-x-5">
+                        {isCreator && (
+                            <div
+                                onClick={() => navigate('/dashboard')}
+                                className="cursor-pointer hover:text-[#cccbcb]/50"
+                            >
+                                Dashboard
+                            </div>
+                        )}
+                        <button onClick={() => logoutUser()} className={cn('btn btn-sm ')}>
+                            Logout
+                        </button>
+                    </div>
                 ) : (
                     <button onClick={() => navigate('/login')} className={cn('btn btn-btn')}>
                         Login

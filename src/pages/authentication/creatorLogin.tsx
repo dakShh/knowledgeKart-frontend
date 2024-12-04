@@ -6,7 +6,7 @@ import CreatorLoginForm from '../../components/auth/CreatorLoginForm';
 
 export default function CreatorLogin() {
     const { isLoggedIn } = useAuth();
-    if (isLoggedIn()) return <Navigate to="/" />;
+    if (isLoggedIn()) return <Navigate to="/dashboard" />;
 
     return (
         <div className="flex min-h-screen items-center justify-center  p-4">

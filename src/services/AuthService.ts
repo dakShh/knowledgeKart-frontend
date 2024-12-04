@@ -1,5 +1,5 @@
 import axios, { AxiosError } from 'axios';
-import { LoginUserApiResponse, UserRegisterData } from '../types/user';
+import { LoginApiResponse, UserRegisterData } from '../types/user';
 import { ApiResponse } from '../types/common';
 import toast from 'react-hot-toast';
 
@@ -30,7 +30,7 @@ export async function RegisterUserAPI(UserData: UserRegisterData, isCreator: boo
 export async function LoginUserAPI(UserData: {
     email: string;
     password: string;
-}): Promise<LoginUserApiResponse | void> {
+}): Promise<LoginApiResponse | void> {
     try {
         const response = await axios.post(userApi + 'login', {
             email: UserData.email,
@@ -39,7 +39,24 @@ export async function LoginUserAPI(UserData: {
         return response.data;
     } catch (error) {
         const errMessage = error as AxiosError;
-        const err = errMessage.response?.data as { error: string };
-        toast.error(err.error ?? '');
+        const err = errMessage.response?.data as { message: string };
+        toast.error(err.message ?? '');
+    }
+}
+
+export async function LoginCreatorAPI(UserData: {
+    email: string;
+    password: string;
+}): Promise<LoginApiResponse | void> {
+    try {
+        const response = await axios.post(adminApi + 'login', {
+            email: UserData.email,
+            password: UserData.password,
+        });
+        return response.data;
+    } catch (error) {
+        const errMessage = error as AxiosError;
+        const err = errMessage.response?.data as { message: string };
+        toast.error(err.message ?? '');
     }
 }

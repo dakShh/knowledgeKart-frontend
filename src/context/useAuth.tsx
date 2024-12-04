@@ -1,17 +1,18 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { UserData } from '../types/user';
 import { useNavigate } from 'react-router-dom';
-import { LoginUserAPI } from '../services/AuthService';
+import { LoginUserAPI, LoginCreatorAPI } from '../services/AuthService';
 import toast from 'react-hot-toast';
 import { sleep } from '../utils/helper';
 
 type AuthContextType = {
     user: UserData | null;
     token: string | null;
-    loginUser: (UserData: { email: string; password: string }) => void;
+    login: (UserData: { email: string; password: string }, isCreator: boolean) => void;
     logoutUser: () => void;
     isLoggedIn: () => boolean;
     isLoading: boolean;
+    isCreator: boolean;
 };
 
 type Props = { children: React.ReactNode };
@@ -20,23 +21,34 @@ const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
 export default function AuthProvider({ children }: Props) {
     const navigate = useNavigate();
+
     const [token, setToken] = useState<string | null>('' as string);
     const [user, setUser] = useState<UserData | null>(null);
+
     const [isReady, setIsReady] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isCreator, setIsCreator] = useState<boolean>(false);
 
-    async function loginUser(UserData: { email: string; password: string }) {
+    async function login(formData: { email: string; password: string }, isCreatorFlag: boolean) {
         try {
-            const res = await LoginUserAPI(UserData);
+            const loginFunction = isCreatorFlag ? LoginCreatorAPI : LoginUserAPI;
+            const res = await loginFunction(formData);
             setIsLoading(true);
             await sleep(1200);
-            if (res) {
+
+            if (res?.token && res?.user) {
                 localStorage.setItem('token', res.token);
                 localStorage.setItem('user', JSON.stringify(res?.user));
+                localStorage.setItem('isCreator', isCreatorFlag.toString());
                 setToken(res?.token);
                 setUser(res?.user);
-                navigate('/');
+                setIsCreator(isCreatorFlag);
+                console.log('isCreatorFlag: ', isCreatorFlag);
+                // navigate(isCreatorFlag ? '/dashboard' : '/');
+                // navigate('/dashboard');
                 toast('Logged in!🚀');
+            } else {
+                toast.error('Error logging in, Please try again later');
             }
         } catch (error) {
             console.error('error: ', error);
@@ -48,9 +60,10 @@ export default function AuthProvider({ children }: Props) {
     function logoutUser() {
         setUser(null);
         setToken('');
-        navigate('/');
+        navigate('/login');
         localStorage.removeItem('user');
         localStorage.removeItem('token');
+        localStorage.removeItem('isCreator');
     }
 
     function isLoggedIn() {
@@ -60,17 +73,16 @@ export default function AuthProvider({ children }: Props) {
     useEffect(() => {
         const user = localStorage.getItem('user');
         const token = localStorage.getItem('token');
-
         if (user && token) {
             setUser(JSON.parse(user));
             setToken(token);
+            setIsCreator(localStorage.getItem('isCreator') == 'true');
         }
-
         setIsReady(true);
     }, []);
 
     return (
-        <AuthContext.Provider value={{ token, user, loginUser, logoutUser, isLoggedIn, isLoading }}>
+        <AuthContext.Provider value={{ token, user, login, logoutUser, isLoggedIn, isLoading, isCreator }}>
             {isReady ? children : null}
         </AuthContext.Provider>
     );

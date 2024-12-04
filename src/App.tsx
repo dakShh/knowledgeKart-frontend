@@ -15,6 +15,7 @@ import './App.css';
 import { ProtectedRoute } from './components/routes/ProtectedRoutes';
 import { Toaster } from 'react-hot-toast';
 import CreatorLogin from './pages/authentication/creatorLogin';
+import { CreatorProtectedRoute } from './components/routes/CreatorProtectedRoutes';
 
 function App() {
     return (
@@ -28,9 +29,9 @@ function App() {
                     <Route
                         path="/dashboard"
                         element={
-                            <ProtectedRoute>
+                            <CreatorProtectedRoute>
                                 <Dashboard />
-                            </ProtectedRoute>
+                            </CreatorProtectedRoute>
                         }
                     />
                 </Routes>

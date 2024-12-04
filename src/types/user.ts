@@ -29,7 +29,7 @@ export interface UserProfileToken {
     token: string;
 }
 
-export interface LoginUserApiResponse {
+export interface LoginApiResponse {
     status: boolean;
     token: string;
     user: UserData;

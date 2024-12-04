@@ -9,7 +9,7 @@ import { useAuth } from '../../context/useAuth';
 
 export default function CreatorLoginForm() {
     const navigate = useNavigate();
-    const { loginUser, isLoading } = useAuth();
+    const { login, isLoading } = useAuth();
     const {
         register,
         handleSubmit,
@@ -17,7 +17,8 @@ export default function CreatorLoginForm() {
     } = useForm<LoginSchemaType>({ resolver: zodResolver(LoginSchema) });
 
     const onSubmit: SubmitHandler<LoginSchemaType> = async (data) => {
-        loginUser(data);
+        console.log('data: ', data);
+        login(data, true);
     };
 
     return (
