@@ -11,7 +11,6 @@ export default function HomePage() {
     useEffect(() => {
         async function fetchAllCourse() {
             const response: CourseApiResponse = await FetchAllCourseApi();
-            console.log('response: ', response);
             if (response.status) {
                 setCourses(response?.data);
             }

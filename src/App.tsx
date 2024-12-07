@@ -16,6 +16,7 @@ import { Toaster } from 'react-hot-toast';
 import CreatorLogin from './pages/authentication/creatorLogin';
 import { CreatorProtectedRoute } from './components/routes/CreatorProtectedRoutes';
 import DashboardPage from './pages/dashboard';
+import CoursePage from './pages/course';
 
 function App() {
     return (
@@ -34,6 +35,7 @@ function App() {
                             </CreatorProtectedRoute>
                         }
                     />
+                    <Route path="/course/:id" element={<CoursePage />} />
                 </Routes>
                 <Toaster position="bottom-right" />
             </AuthProvider>

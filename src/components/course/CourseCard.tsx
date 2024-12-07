@@ -1,8 +1,11 @@
+import { useNavigate } from 'react-router-dom';
 import { Course } from '../../types/course';
 import { UserData } from '../../types/user';
 import { cn } from '../../utils/cn';
 
 export default function CourseCard({ courseInfo }: { courseInfo: Course }) {
+    const navigate = useNavigate();
+
     return (
         <div className="card bg-[#e7e7e7] text-base-100 shadow-xl">
             {/* <figure>
@@ -12,7 +15,12 @@ export default function CourseCard({ courseInfo }: { courseInfo: Course }) {
                 />
             </figure> */}
             <div className="card-body gap-0">
-                <h2 className="card-title mb-1 font-bold">{courseInfo.title}</h2>
+                <h2
+                    onClick={() => navigate(`/course/${courseInfo._id}`)}
+                    className={cn('card-title mb-1 font-bold', 'cursor-pointer hover:underline ')}
+                >
+                    {courseInfo.title}
+                </h2>
                 <div className={cn('text-xs text-base-100/60')}>
                     {(courseInfo?.adminId as UserData).firstName}{' '}
                     {(courseInfo?.adminId as UserData).lastName}
