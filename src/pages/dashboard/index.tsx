@@ -1,7 +1,7 @@
 import NavBar from '../../components/layout/NavBar';
 
 import { cn } from '../../utils/cn';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 // Pages
 import AddCourse from './AddCourse';
@@ -10,9 +10,8 @@ import Dashboard from './Dashboard';
 import { useEffect, useState } from 'react';
 
 export default function DashboardPage() {
-    const navigate = useNavigate();
     const location = useLocation();
-    const [currentTab, setCurrentTab] = useState<string>('');
+    const [currentTab, setCurrentTab] = useState<string>('/add-course');
 
     useEffect(() => {
         const path = location.pathname;
@@ -28,7 +27,7 @@ export default function DashboardPage() {
             case '/list':
                 return <CourseList />;
             default:
-                return <div>default</div>;
+                return <div>Loading..</div>;
         }
     };
 
