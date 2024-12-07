@@ -11,6 +11,7 @@ export default function HomePage() {
     useEffect(() => {
         async function fetchAllCourse() {
             const response: CourseApiResponse = await FetchAllCourseApi();
+            console.log('response: ', response);
             if (response.status) {
                 setCourses(response?.data);
             }
@@ -24,7 +25,7 @@ export default function HomePage() {
             <Hero />
             <div className="px-10 my-10">
                 <div className={cn('mb-8', 'text-2xl font-extrabold')}>All Courses</div>
-                <div className={cn('grid grid-cols-4 gap-6', '')}>
+                <div className={cn('grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6', '')}>
                     {courses?.map((course, index) => {
                         return <CourseCard courseInfo={course} key={index} />;
                     })}
