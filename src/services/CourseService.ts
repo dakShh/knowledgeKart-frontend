@@ -30,10 +30,13 @@ export async function FetchCreatorCourse(token: string) {
 
 // Todo: change the token sending method
 export async function AddCourse(
-    FormData: AddCourseRequest,
+    // FormData: AddCourseRequest,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    FormData: any,
     token: string
 ): Promise<AddCourseResponse['data'] | void> {
     try {
+        // console.log('FormData: ', FormData);
         const response = await axios.post<AddCourseResponse['data']>(api + 'create', FormData, {
             headers: { Authorization: `Bearer ${token}` },
         });

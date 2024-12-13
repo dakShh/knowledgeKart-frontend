@@ -22,8 +22,8 @@ export default function CourseCard({ courseInfo }: { courseInfo: Course }) {
                     {courseInfo.title}
                 </h2>
                 <div className={cn('text-xs text-base-100/60')}>
-                    {(courseInfo?.adminId as UserData).firstName}{' '}
-                    {(courseInfo?.adminId as UserData).lastName}
+                    {(courseInfo?.adminId as UserData)?.firstName || ''}{' '}
+                    {(courseInfo?.adminId as UserData)?.lastName || ''}
                 </div>
                 <p className={cn('text-base-100/60 text-xs items-start py-4')}>{courseInfo.description}</p>
                 <div className="card-actions justify-between">

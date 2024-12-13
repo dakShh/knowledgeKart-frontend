@@ -5,18 +5,24 @@ import { cn } from '../../utils/cn';
 import { AddCourse } from '../../services/CourseService';
 import { useAuth } from '../../context/useAuth';
 import toast from 'react-hot-toast';
+import AddCourseContent from './AddCourseContent';
 
 export default function AddCourseForm() {
     const { token } = useAuth();
-    const {
-        register,
-        handleSubmit,
-        reset,
-        formState: { errors },
-    } = useForm<CreateCourseSchemaType>({ resolver: zodResolver(CreateCourseSchema) });
+    const { register, handleSubmit, reset, formState } = useForm<CreateCourseSchemaType>({
+        resolver: zodResolver(CreateCourseSchema),
+    });
 
     const onSubmit: SubmitHandler<CreateCourseSchemaType> = async (data) => {
-        const response = await AddCourse(data, token || '');
+        const d = new FormData();
+        d.append('title', data.title);
+        d.append('description', data.description);
+        d.append('price', data.price);
+
+        d.append('content', data.content[0]);
+        d.append('content', data.content[1]);
+
+        const response = await AddCourse(d, token || '');
 
         if (response) {
             toast(response.message);
@@ -38,8 +44,8 @@ export default function AddCourseForm() {
                         {...register('title')}
                     />
 
-                    {errors.title && (
-                        <span className={cn('text-error text-sm')}>{errors.title.message}</span>
+                    {formState.errors.title && (
+                        <span className={cn('text-error text-sm')}>{formState.errors.title.message}</span>
                     )}
                 </label>
 
@@ -55,8 +61,10 @@ export default function AddCourseForm() {
                         {...register('description')}
                     ></input>
 
-                    {errors.description && (
-                        <span className={cn('text-error text-sm')}>{errors.description.message}</span>
+                    {formState.errors.description && (
+                        <span className={cn('text-error text-sm')}>
+                            {formState.errors.description.message}
+                        </span>
                     )}
                 </label>
 
@@ -71,14 +79,18 @@ export default function AddCourseForm() {
                         {...register('price')}
                     ></input>
 
-                    {errors.price && (
-                        <span className={cn('text-error text-sm')}>{errors.price.message}</span>
+                    {formState.errors.price && (
+                        <span className={cn('text-error text-sm')}>{formState.errors.price.message}</span>
                     )}
                 </label>
 
+                <AddCourseContent
+                    register={register}
+                    error={formState?.errors.content?.message as string}
+                />
+
                 <div className={cn('w-full')}>
                     <button type="submit" className="mt-5 btn btn-primary w-full rounded-full">
-                        {/* {isLoading ? <span className="loading loading-bars loading-sm"></span> : `Login`} */}
                         Add
                     </button>
                 </div>
