@@ -1,13 +1,11 @@
 import axios, { AxiosError } from 'axios';
 import toast from 'react-hot-toast';
-import { AddCourseRequest, AddCourseResponse, Course } from '../types/course';
+import { AddCourseResponse, Course } from '../types/course';
 
 const api = 'http://localhost:8000/api/v1/course/';
 
 export async function FetchAllCourseApi() {
     try {
-        // console.log(filter);
-        // console.log(options);
         const response = await axios.post(api + 'preview');
         return response.data;
     } catch (error) {
@@ -39,7 +37,6 @@ export async function AddCourse(
         const response = await axios.post<AddCourseResponse>(api + 'create', FormData, {
             headers: { Authorization: `Bearer ${token}` },
         });
-        console.log('AddCourse: ', response);
         return response.data;
     } catch (error) {
         const errMessage = error as AxiosError;
