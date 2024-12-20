@@ -14,7 +14,6 @@ export default function CoursePage() {
         async function fetchAllCourse() {
             if (id) {
                 const response = await GetCourseById(id || '');
-                console.log('response: ', response);
                 if (response) setCourse(response.data);
             }
         }
@@ -37,13 +36,7 @@ export default function CoursePage() {
             <div className={cn('max-w-4xl mx-auto mt-20')}>
                 {course?.content?.map((videoUrl, index) => {
                     return (
-                        <video
-                            className={cn('mb-5')}
-                            key={index}
-                            // width="500px"
-                            // height="400px"
-                            controls={true}
-                        >
+                        <video className={cn('mb-5')} key={index} controls={true}>
                             <source src={videoUrl} type="video/mp4" />
                         </video>
                     );

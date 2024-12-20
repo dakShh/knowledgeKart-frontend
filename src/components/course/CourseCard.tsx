@@ -17,15 +17,20 @@ export default function CourseCard({ courseInfo }: { courseInfo: Course }) {
             <div className="card-body gap-0">
                 <h2
                     onClick={() => navigate(`/course/${courseInfo._id}`)}
-                    className={cn('card-title mb-1 font-bold', 'cursor-pointer hover:underline ')}
+                    className={cn('card-title mb-1 text-2xl font-bold', 'cursor-pointer hover:underline ')}
                 >
                     {courseInfo.title}
                 </h2>
-                <div className={cn('text-xs text-base-100/60')}>
-                    {(courseInfo?.adminId as UserData)?.firstName || ''}{' '}
-                    {(courseInfo?.adminId as UserData)?.lastName || ''}
+                <div className={cn('text-base-100/60 flex items-start gap-x-1')}>
+                    <div className={cn('w-6 h-6 bg-neutral-700 rounded-full')}></div>
+                    <div className="text-sm">
+                        {(courseInfo?.adminId as UserData)?.firstName || ''}{' '}
+                        {(courseInfo?.adminId as UserData)?.lastName || ''}
+                    </div>
                 </div>
-                <p className={cn('text-base-100/60 text-xs items-start py-4')}>{courseInfo.description}</p>
+                <p className={cn('text-base-100/60 text-xs items-start py-4 overflow-hidden')}>
+                    {courseInfo.description}
+                </p>
                 <div className="card-actions justify-between">
                     <div className={cn('text-xl text-base-100 font-extrabold')}>${courseInfo.price}/-</div>
                     <button className="btn btn-base-300">Buy Now</button>

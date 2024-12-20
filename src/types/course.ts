@@ -28,9 +28,7 @@ export interface AddCourseRequest {
 }
 
 export interface AddCourseResponse {
-    data: {
-        status: boolean;
-        message: string;
-        course: Course;
-    };
+    status: boolean;
+    message: string;
+    course: Course;
 }

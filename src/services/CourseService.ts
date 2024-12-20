@@ -34,10 +34,9 @@ export async function AddCourse(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     FormData: any,
     token: string
-): Promise<AddCourseResponse['data'] | void> {
+): Promise<AddCourseResponse | void> {
     try {
-        // console.log('FormData: ', FormData);
-        const response = await axios.post<AddCourseResponse['data']>(api + 'create', FormData, {
+        const response = await axios.post<AddCourseResponse>(api + 'create', FormData, {
             headers: { Authorization: `Bearer ${token}` },
         });
         console.log('AddCourse: ', response);

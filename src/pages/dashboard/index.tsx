@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react';
 
 export default function DashboardPage() {
     const location = useLocation();
-    const [currentTab, setCurrentTab] = useState<string>('/list');
+    const [currentTab, setCurrentTab] = useState<string>('/add-course');
 
     useEffect(() => {
         const path = location.pathname;
