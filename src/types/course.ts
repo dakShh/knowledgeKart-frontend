@@ -6,7 +6,11 @@ export interface Course {
     description: string;
     adminId: string | UserData;
     price: string;
-    content: string[];
+    content: {
+        title: string;
+        description: string;
+        video: string;
+    }[];
 }
 
 export interface CreateCourseFormData {

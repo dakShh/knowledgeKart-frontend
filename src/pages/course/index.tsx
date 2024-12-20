@@ -33,12 +33,18 @@ export default function CoursePage() {
                 </div>
             </div>
 
-            <div className={cn('max-w-4xl mx-auto mt-20')}>
-                {course?.content?.map((videoUrl, index) => {
+            <div className={cn('max-w-5xl mx-auto mt-20')}>
+                {course?.content?.map((c, index) => {
                     return (
-                        <video className={cn('mb-5')} key={index} controls={true}>
-                            <source src={videoUrl} type="video/mp4" />
-                        </video>
+                        <div key={index} className={cn('mb-10')}>
+                            <div className={cn('mb-10')}>
+                                <div className={cn('text-3xl font-extrabold')}>{c.title}</div>
+                                <div className={cn('opacity-60')}>{c.description}</div>
+                            </div>
+                            <video className={cn('mb-5 w-full')} key={index} controls={true}>
+                                <source src={c.video} type="video/mp4" />
+                            </video>
+                        </div>
                     );
                 })}
             </div>
