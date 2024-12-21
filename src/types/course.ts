@@ -6,6 +6,7 @@ export interface Course {
     description: string;
     adminId: string | UserData;
     price: string;
+    thumbnail: string;
     content: {
         title: string;
         description: string;

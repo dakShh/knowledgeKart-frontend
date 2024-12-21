@@ -8,12 +8,9 @@ export default function CourseCard({ courseInfo }: { courseInfo: Course }) {
 
     return (
         <div className="card bg-[#e7e7e7] text-base-100 shadow-xl">
-            {/* <figure>
-                <img
-                    src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                    alt="Shoes"
-                />
-            </figure> */}
+            <figure>
+                <img src={courseInfo?.thumbnail || ''} alt="Shoes" />
+            </figure>
             <div className="card-body gap-0">
                 <h2
                     onClick={() => navigate(`/course/${courseInfo._id}`)}
