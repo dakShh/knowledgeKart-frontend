@@ -5,35 +5,36 @@ import { useEffect, useState } from 'react';
 import { Course } from '../../types/course';
 import { GetCourseById } from '../../services/CourseService';
 import { UserData } from '../../types/user';
+import CourseDetailCard from '../../components/course/CourseDetailCard';
 
 export default function CoursePage() {
     const { id } = useParams();
     const [course, setCourse] = useState<Course>();
-
+    console.log('course: ', course);
     useEffect(() => {
-        async function fetchAllCourse() {
+        async function getCourseDetail() {
             if (id) {
                 const response = await GetCourseById(id || '');
                 if (response) setCourse(response.data);
             }
         }
 
-        fetchAllCourse();
+        getCourseDetail();
     }, []);
     return (
         <div className={cn('container mx-auto')}>
             <NavBar />
-            <div className={cn('max-w-3xl mx-auto mt-20', 'flex flex-col space-y-10')}>
-                <div>
-                    <div className={cn('text-5xl font-extrabold mb-2')}>{course?.title}</div>
-                    <div className={cn('text-lg mb-5')}>
-                        {(course?.adminId as UserData)?.firstName} {(course?.adminId as UserData)?.lastName}
+            <div className={cn('bg-blue-800 py-8', 'flex items-center', 'min-h-[350px]')}>
+                <div className={cn('max-w-5xl w-full mx-auto ', 'relative', '')}>
+                    <div>
+                        <div className={cn('text-5xl text-info  font-extrabold mb-2')}>{course?.title}</div>
+                        <div className={cn('text-lg text-info font-thin')}>{course?.description}</div>
                     </div>
-                    <div className={cn('text-lg text-white/40 font-thin')}>{course?.description}</div>
+                    <CourseDetailCard courseDetail={course} />
                 </div>
             </div>
 
-            <div className={cn('max-w-5xl mx-auto mt-20')}>
+            {/* <div className={cn('max-w-5xl mx-auto mt-20')}>
                 {course?.content?.map((c, index) => {
                     return (
                         <div key={index} className={cn('mb-10')}>
@@ -47,7 +48,7 @@ export default function CoursePage() {
                         </div>
                     );
                 })}
-            </div>
+            </div> */}
         </div>
     );
 }
