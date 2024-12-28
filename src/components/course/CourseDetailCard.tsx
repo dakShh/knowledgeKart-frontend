@@ -1,6 +1,7 @@
 import { Course } from '../../types/course';
 import { UserData } from '../../types/user';
 import { cn } from '../../utils/cn';
+import EnrollModal from '../modal/EnrollModal';
 
 export default function CourseDetailCard({ courseDetail }: { courseDetail: Course | undefined }) {
     return (
@@ -36,11 +37,19 @@ export default function CourseDetailCard({ courseDetail }: { courseDetail: Cours
                         </div>
 
                         <div className={cn('mt-4')}>
-                            <button className={cn('btn-primary btn w-full')}>Enroll</button>
+                            <a
+                                onClick={() =>
+                                    (document.getElementById('my_modal_8') as HTMLDialogElement).showModal()
+                                }
+                                className={cn('btn-primary btn w-full')}
+                            >
+                                Enroll
+                            </a>
                         </div>
                     </div>
                 </>
             )}
+            <EnrollModal courseDetail={courseDetail} />
         </div>
     );
 }

@@ -30,7 +30,7 @@ export default function CourseCard({ courseInfo }: { courseInfo: Course }) {
                 </p>
                 <div className="card-actions justify-between">
                     <div className={cn('text-xl text-base-100 font-extrabold')}>${courseInfo.price}/-</div>
-                    <button className="btn btn-base-300">Buy Now</button>
+                    <button className="btn btn-base-300">Enroll</button>
                 </div>
             </div>
         </div>

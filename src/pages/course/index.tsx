@@ -4,13 +4,13 @@ import { cn } from '../../utils/cn';
 import { useEffect, useState } from 'react';
 import { Course } from '../../types/course';
 import { GetCourseById } from '../../services/CourseService';
-import { UserData } from '../../types/user';
+// import { UserData } from '../../types/user';
 import CourseDetailCard from '../../components/course/CourseDetailCard';
 
 export default function CoursePage() {
     const { id } = useParams();
     const [course, setCourse] = useState<Course>();
-    console.log('course: ', course);
+
     useEffect(() => {
         async function getCourseDetail() {
             if (id) {

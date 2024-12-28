@@ -57,3 +57,20 @@ export async function GetCourseById(id: string): Promise<{ data: Course } | void
         toast.error(err.message ?? '');
     }
 }
+
+export async function EnrollUser(
+    id: string,
+    token: string
+): Promise<{ status: boolean; message: string } | void> {
+    try {
+        const response = await axios.get<{ status: boolean; message: string }>(api + `purchase/${id}`, {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+        return response.data;
+    } catch (error) {
+        const errMessage = error as AxiosError;
+        const err = errMessage.response?.data as { message: string };
+        console.log('Enroll error: ', err);
+        toast.error(err.message ?? '');
+    }
+}
