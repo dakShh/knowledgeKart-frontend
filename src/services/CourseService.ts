@@ -74,3 +74,17 @@ export async function EnrollUser(
         toast.error(err.message ?? '');
     }
 }
+
+export async function checkEnrollmentApi(id: string, token: string): Promise<{ data: boolean } | void> {
+    try {
+        const response = await axios.get<{ data: boolean }>(api + `checkEnrollment/${id}`, {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+        return response.data;
+    } catch (error) {
+        const errMessage = error as AxiosError;
+        const err = errMessage.response?.data as { message: string };
+        console.log('Error checking enrollment: ', err);
+        toast.error(err.message ?? '');
+    }
+}

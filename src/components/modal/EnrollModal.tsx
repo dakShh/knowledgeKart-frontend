@@ -17,8 +17,11 @@ export default function EnrollModal({ courseDetail }: { courseDetail: Course | u
         if (response) {
             toast.success(response.message);
         }
+
         closeModal();
+
         setIsLoading(false);
+        window.location.reload();
     }
 
     function closeModal() {

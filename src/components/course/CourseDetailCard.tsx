@@ -3,13 +3,19 @@ import { UserData } from '../../types/user';
 import { cn } from '../../utils/cn';
 import EnrollModal from '../modal/EnrollModal';
 
-export default function CourseDetailCard({ courseDetail }: { courseDetail: Course | undefined }) {
+export default function CourseDetailCard({
+    courseDetail,
+    isEnrolled,
+}: {
+    courseDetail: Course | undefined;
+    isEnrolled: boolean;
+}) {
     return (
         <div
             className={cn(
-                'absolute right-[-50px] bottom-[-350px]',
+                'absolute right-[-50px] bottom-[-300px]',
                 'bg-info rounded-xl',
-                'overflow-hidden max-w-sm'
+                'overflow-hidden max-w-[20rem]'
             )}
         >
             {courseDetail && (
@@ -36,16 +42,24 @@ export default function CourseDetailCard({ courseDetail }: { courseDetail: Cours
                             <CardInfo title={'Language'} value={`English`} />
                         </div>
 
-                        <div className={cn('mt-4')}>
-                            <a
-                                onClick={() =>
-                                    (document.getElementById('my_modal_8') as HTMLDialogElement).showModal()
-                                }
-                                className={cn('btn-primary btn w-full')}
-                            >
-                                Enroll
-                            </a>
-                        </div>
+                        {!isEnrolled ? (
+                            <div className={cn('mt-4')}>
+                                <a
+                                    onClick={() =>
+                                        (
+                                            document.getElementById('my_modal_8') as HTMLDialogElement
+                                        ).showModal()
+                                    }
+                                    className={cn('btn-primary btn w-full')}
+                                >
+                                    Enroll
+                                </a>
+                            </div>
+                        ) : (
+                            <div className={cn('mt-4')}>
+                                <a className={cn('btn-primary btn w-full')}>Start</a>
+                            </div>
+                        )}
                     </div>
                 </>
             )}
