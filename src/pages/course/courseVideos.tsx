@@ -10,7 +10,6 @@ import NavBar from '../../components/layout/NavBar';
 // Types
 import { Course } from '../../types/course';
 import { GetCourseById } from '../../services/CourseService';
-import { sleep } from '../../utils/helper';
 
 type CurrentVideo =
     | {

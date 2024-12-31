@@ -25,8 +25,6 @@ export default function CoursePage() {
         async function checkEnrollment(courseId: string) {
             const response = await checkEnrollmentApi(courseId || '', token || '');
             if (response && response.data) {
-                // const course = await GetCourseById(courseId || '');
-                // setCourse(course?.data);
                 setIsEnrolled(true);
             }
         }

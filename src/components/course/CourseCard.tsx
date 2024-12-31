@@ -19,7 +19,7 @@ export default function CourseCard({ courseInfo }: { courseInfo: Course }) {
                     {courseInfo.title}
                 </h2>
                 <div className={cn('text-base-100/60 flex items-start gap-x-1')}>
-                    <div className={cn('w-6 h-6 bg-neutral-700 rounded-full')}></div>
+                    {/* <div className={cn('w-6 h-6 bg-neutral-700 rounded-full')}></div> */}
                     <div className="text-sm">
                         {(courseInfo?.adminId as UserData)?.firstName || ''}{' '}
                         {(courseInfo?.adminId as UserData)?.lastName || ''}

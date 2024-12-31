@@ -43,9 +43,6 @@ export default function AuthProvider({ children }: Props) {
                 setToken(res?.token);
                 setUser(res?.user);
                 setIsCreator(isCreatorFlag);
-                console.log('isCreatorFlag: ', isCreatorFlag);
-                // navigate(isCreatorFlag ? '/dashboard' : '/');
-                // navigate('/dashboard');
                 toast('Logged in!🚀');
             } else {
                 toast.error('Error logging in, Please try again later');
