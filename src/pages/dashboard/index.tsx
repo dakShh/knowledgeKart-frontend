@@ -1,30 +1,24 @@
 import NavBar from '../../components/layout/NavBar';
 
 import { cn } from '../../utils/cn';
-import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 // Pages
 import AddCourse from './AddCourse';
 import CourseList from './CourseList';
 import Dashboard from './Dashboard';
-import { useEffect, useState } from 'react';
-
+import { useParams } from 'react-router-dom';
 export default function DashboardPage() {
-    const location = useLocation();
-    const [currentTab, setCurrentTab] = useState<string>('/add-course');
-
-    useEffect(() => {
-        const path = location.pathname;
-        console.log('path: ', path);
-    }, [location.pathname]);
+    const { path } = useParams();
+    const navigate = useNavigate();
 
     const renderDashboard = () => {
-        switch (currentTab) {
-            case '':
+        switch (path) {
+            case 'home':
                 return <Dashboard />;
-            case '/add-course':
+            case 'add-course':
                 return <AddCourse />;
-            case '/list':
+            case 'list':
                 return <CourseList />;
             default:
                 return <div>Loading..</div>;
@@ -45,13 +39,13 @@ export default function DashboardPage() {
                     ></label>
                     <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
                         <li>
-                            <div onClick={() => setCurrentTab('')}>Dashboard</div>
+                            <div onClick={() => navigate('/dashboard/home')}>Dashboard</div>
                         </li>
                         <li>
-                            <div onClick={() => setCurrentTab('/add-course')}>Add a course</div>
+                            <div onClick={() => navigate('/dashboard/add-course')}>Add a course</div>
                         </li>
                         <li>
-                            <div onClick={() => setCurrentTab('/list')}>Course list</div>
+                            <div onClick={() => navigate('/dashboard/list')}>Course list</div>
                         </li>
                     </ul>
                 </div>

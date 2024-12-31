@@ -3,7 +3,7 @@ import { useAuth } from '../../context/useAuth';
 import { cn } from '../../utils/cn';
 
 export default function NavBar() {
-    const { isLoggedIn, logoutUser, isCreator } = useAuth();
+    const { isLoggedIn, logoutUser, isCreator, user } = useAuth();
     const navigate = useNavigate();
     return (
         <div className="navbar bg-neutral-800 shadow-lg md:px-10">
@@ -34,10 +34,19 @@ export default function NavBar() {
                     <div className="menu menu-horizontal items-center gap-x-5">
                         {isCreator && (
                             <div
-                                onClick={() => navigate('/dashboard')}
+                                onClick={() => navigate('/dashboard/home')}
                                 className="cursor-pointer hover:text-[#cccbcb]/50"
                             >
                                 Dashboard
+                            </div>
+                        )}
+
+                        {!isCreator && (
+                            <div
+                                onClick={() => navigate('/dashboard/home')}
+                                className="cursor-pointer hover:text-[#cccbcb]/50"
+                            >
+                                {`Hi, ${user?.firstName}`}
                             </div>
                         )}
                         <button onClick={() => logoutUser()} className={cn('btn btn-sm ')}>

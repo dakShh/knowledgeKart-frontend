@@ -29,7 +29,7 @@ function App() {
                     <Route path="/signup" element={<SignUp />} />
                     <Route path="/" element={<HomePage />} />
                     <Route
-                        path="/dashboard"
+                        path="/dashboard/:path"
                         element={
                             <CreatorProtectedRoute>
                                 <DashboardPage />
