@@ -41,7 +41,7 @@ export default function CourseDetailCard({
                             />
 
                             <CardInfo title={'Videos'} value={`${courseDetail?.content.length ?? 0}`} />
-                            <CardInfo title={'Students'} value={`${0}`} />
+                            <CardInfo title={'Students'} value={`${courseDetail?.noOfStudents ?? 0}`} />
                             <CardInfo title={'Language'} value={`English`} />
                         </div>
 

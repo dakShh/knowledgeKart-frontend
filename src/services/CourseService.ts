@@ -48,7 +48,7 @@ export async function AddCourse(
 
 export async function GetCourseById(id: string): Promise<{ data: Course } | void> {
     try {
-        const response = await axios.get<{ data: Course }>(api + `course/${id}`);
+        const response = await axios.get<{ data: Course }>(api + `${id}`);
         return response.data;
     } catch (error) {
         const errMessage = error as AxiosError;
