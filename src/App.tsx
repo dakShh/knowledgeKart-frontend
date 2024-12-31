@@ -17,6 +17,7 @@ import CreatorLogin from './pages/authentication/creatorLogin';
 import { CreatorProtectedRoute } from './components/routes/CreatorProtectedRoutes';
 import DashboardPage from './pages/dashboard';
 import CoursePage from './pages/course';
+import CourseVideos from './pages/course/courseVideos';
 
 function App() {
     return (
@@ -36,6 +37,7 @@ function App() {
                         }
                     />
                     <Route path="/course/:id" element={<CoursePage />} />
+                    <Route path="/course/content/:id" element={<CourseVideos />} />
                 </Routes>
                 <Toaster position="bottom-right" />
             </AuthProvider>

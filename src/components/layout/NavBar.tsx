@@ -5,7 +5,6 @@ import { cn } from '../../utils/cn';
 export default function NavBar() {
     const { isLoggedIn, logoutUser, isCreator } = useAuth();
     const navigate = useNavigate();
-
     return (
         <div className="navbar bg-neutral-800 shadow-lg md:px-10">
             <div className="mr-5">

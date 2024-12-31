@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { Course } from '../../types/course';
 import { UserData } from '../../types/user';
 import { cn } from '../../utils/cn';
@@ -10,6 +11,8 @@ export default function CourseDetailCard({
     courseDetail: Course | undefined;
     isEnrolled: boolean;
 }) {
+    const navigate = useNavigate();
+
     return (
         <div
             className={cn(
@@ -57,7 +60,14 @@ export default function CourseDetailCard({
                             </div>
                         ) : (
                             <div className={cn('mt-4')}>
-                                <a className={cn('btn-primary btn w-full')}>Start</a>
+                                <a
+                                    onClick={() => {
+                                        navigate(`/course/content/${courseDetail._id}`);
+                                    }}
+                                    className={cn('btn-primary btn w-full')}
+                                >
+                                    View
+                                </a>
                             </div>
                         )}
                     </div>
