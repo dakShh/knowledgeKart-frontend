@@ -4,6 +4,7 @@ import { cn } from '../../utils/cn';
 import { UserRound } from 'lucide-react';
 import { GetDashboardDataApi } from '../../services/DashboardService';
 import Loader from '../../components/loader';
+
 export default function Dashboard() {
     const { user, token } = useAuth();
 
