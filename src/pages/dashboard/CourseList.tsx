@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { cn } from '../../utils/cn';
-import { FetchAllCourseApi, FetchCreatorCourse } from '../../services/CourseService';
+import { FetchCreatorCourse } from '../../services/CourseService';
 import { useAuth } from '../../context/useAuth';
 import { Course } from '../../types/course';
+import CourseDetailModal from '../../components/dashboard/CourseDetailModal';
 
 export default function CourseList() {
     const { token } = useAuth();
@@ -18,7 +19,6 @@ export default function CourseList() {
         }
 
         fetchList();
-        console.log('courseList', courseList);
     }, []);
 
     return (
@@ -26,57 +26,52 @@ export default function CourseList() {
             <div className={cn('w-full text-3xl font-extrabold px-10 my-10')}>Course List</div>
             <div className="overflow-x-auto w-full px-10">
                 <table className="table">
-                    {/* head */}
                     <thead>
-                        <tr>
-                            <th>
-                                <label>
-                                    <input type="checkbox" className="checkbox" />
-                                </label>
-                            </th>
-
+                        <tr className="bg-secondary font-extrabold text-md">
                             <th>Sr.No.</th>
                             <th>Title</th>
                             <th>Description</th>
+                            <th>No. of Students</th>
                             <th>Price</th>
-                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        {/* row 1 */}
                         {courseList?.map((course, index) => {
                             return (
-                                <tr>
-                                    <th>
-                                        <label>
-                                            <input type="checkbox" className="checkbox" />
-                                        </label>
-                                    </th>
-                                    <td className="max-w-sm">{index + 1}</td>
+                                <tr
+                                    role="button"
+                                    className="border-b border-white/10 hover:bg-secondary/20  cursor-pointer"
+                                >
+                                    <td className="max-w-[20px]">{index + 1}</td>
                                     <td className="max-w-20">
                                         <div className="flex items-center gap-3">
                                             {/* <div className="avatar">
-                                                <div className="mask mask-squircle h-12 w-12 bg-white"></div>
+                                                <div className=" h-12 w-20">
+                                                    <img
+                                                        src={course.thumbnail}
+                                                        alt="Avatar Tailwind CSS Component"
+                                                    />
+                                                </div>
                                             </div> */}
                                             <div>
-                                                {/* <div className="font-bold">Hart Hagerty</div>
-                                                <div className="text-sm opacity-50">United States</div> */}
-                                                {course.title}
+                                                <div className="">{course.title}</div>
                                             </div>
                                         </div>
                                     </td>
                                     <td className={cn('max-w-[200px] overflow-hidden')}>
                                         {course.description || ''}
                                     </td>
+                                    <td>{course.noOfStudents ?? 0}</td>
                                     <td>{`$${course.price}`}</td>
-                                    <th>
+                                    {/* <th>
                                         <button className="btn btn-primary btn-xs">Edit</button>
-                                    </th>
+                                    </th> */}
                                 </tr>
                             );
                         })}
                     </tbody>
                 </table>
+                <CourseDetailModal />
             </div>
         </div>
     );

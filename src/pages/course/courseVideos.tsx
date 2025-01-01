@@ -54,7 +54,7 @@ export default function CourseVideos() {
             {/* bg-blue-800 min-h-[350px]*/}
             <div className={cn('mt-24 py-8', 'flex items-center')}>
                 <div className={cn('max-w-5xl w-full mx-auto ', 'relative', '')}>
-                    <div>
+                    <div className="text-primary">
                         <div className={cn('text-5xl text-info  font-extrabold mb-2')}>{course?.title}</div>
                         <div className={cn('text-lg text-info font-thin')}>{course?.description}</div>
                     </div>

@@ -37,7 +37,7 @@ export default function CoursePage() {
     return (
         <div className={cn('container mx-auto')}>
             <NavBar />
-            <div className={cn('bg-blue-800 py-8', 'flex items-center', 'min-h-[350px]')}>
+            <div className={cn('bg-primary py-8', 'flex items-center', 'min-h-[350px]')}>
                 <div className={cn('max-w-5xl w-full mx-auto ', 'relative', '')}>
                     <div>
                         <div className={cn('text-5xl text-info  font-extrabold mb-2')}>{course?.title}</div>

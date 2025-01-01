@@ -6,7 +6,7 @@ export default function NavBar() {
     const { isLoggedIn, logoutUser, isCreator, user } = useAuth();
     const navigate = useNavigate();
     return (
-        <div className="navbar bg-neutral-800 shadow-lg md:px-10">
+        <div className="navbar bg-primary shadow-lg md:px-10">
             <div className="mr-5">
                 <label htmlFor="my-drawer-2" className="btn btn-accent drawer-button lg:hidden">
                     <svg

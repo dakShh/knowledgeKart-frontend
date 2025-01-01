@@ -2,7 +2,7 @@ import { cn } from '../../utils/cn';
 
 export default function Hero() {
     return (
-        <div className="relative bg-neutral-800">
+        <div className="relative bg-primary">
             <div className="absolute inset-x-0 bottom-0">
                 <svg
                     viewBox="0 0 224 12"
@@ -18,7 +18,7 @@ export default function Hero() {
                     <h2 className="mb-6 font-sans text-3xl font-bold tracking-tight text-white sm:text-4xl sm:leading-none">
                         Unlock Your Potential.
                         <br className="hidden md:block" />
-                        Learn, Grow, <span className="text-primary">Succeed</span>.
+                        Learn, Grow, <span className="text-yellow-400 font-extrabold">Succeed</span>.
                     </h2>
                     <p className="mb-6 text-base font-thin tracking-wide text-white/30 md:text-lg">
                         Explore a world of online courses designed to help you master new skills at your own
@@ -28,8 +28,8 @@ export default function Hero() {
 
                     <p
                         className={cn(
-                            'text-xs font-thin tracking-wide text-white sm:text-sm ',
-                            'rounded-full bg-primary',
+                            'text-xs font-thin tracking-wide text-white  sm:text-sm ',
+                            'rounded-full bg-neutral-800',
                             'mb-10 sm:mx-auto md:mb-16',
                             'py-2 px-4 max-w-fit'
                         )}
